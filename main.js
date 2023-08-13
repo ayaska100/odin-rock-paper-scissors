@@ -12,12 +12,8 @@ function normalizeUserChoice(choice) {
 
 // returns result string: does a beat b?
 function playRound(playerChoice, computerChoice) {
-    if (playerChoice === computerChoice) {
-        return `Tie! You both picked ${playerChoice}.`
-    }
-
+    // validity checks
     let validChoices = ["Rock", "Paper", "Scissors"]
-
     if (!["Rock", "Paper", "Scissors"].includes(playerChoice)) {
         return "Invalid choice from Player! Try again"
     }
@@ -26,21 +22,23 @@ function playRound(playerChoice, computerChoice) {
         return "Invalid choice from Computer! Try again"
     }
 
+    // check for tie
+    if (playerChoice === computerChoice) {
+        return `Tie! You both picked ${playerChoice}.`
+    }
+
+    // decide if player won
     let playerWon;
 
     if (playerChoice === "Rock") {
         playerWon = (computerChoice === "Paper") // true if paper, false otherwise
     } else if (playerChoice === "Paper") {
-
-    }
-    if (playerChoice === "Scissors") {
-        if (computerChoice === "Rock") {
-            return "You lose! Rock beats Scissors>"
-        } else {
-            return "You win! Scissors beats Paper"
-        }
+        playerWon = (computerChoice === "Rock")
+    } else {
+        playerWon = (computerChoice === "Scissors")
     }
 
+    // return result
     if (playerWon) {
         return `You win! ${playerChoice} beats ${computerChoice}`;
     } else {
