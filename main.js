@@ -3,14 +3,13 @@ function getComputerChoice () {
   return choices[Math.floor(Math.random() * choices.length)]
 }
 
-console.log(`Computer Choice: ${getComputerChoice()}`)
-
 // returns a titlecase formatted choice
-function normalizeUserChoice (choice) {
+function normalizeChoice (choice) {
   return choice.slice(0, 1).toUpperCase() + choice.slice(1).toLowerCase()
 }
 
 // returns result string: does a beat b?
+// IMPORTANT: takes in PROPERLY FORMATTER strings (titlecase) for each choice
 function playRound (playerChoice, computerChoice) {
   // validity checks
   const validChoices = ['Rock', 'Paper', 'Scissors']
@@ -45,3 +44,36 @@ function playRound (playerChoice, computerChoice) {
     return `You lose! ${computerChoice} beats ${playerChoice}`
   }
 }
+
+function game () {
+  let computerScore = 0
+  let playerScore = 0
+
+  // loop til we break
+  while (true) {
+    const playerChoice = normalizeChoice(window.prompt('Choose your weapon of choice [Rock/Paper/Scissors]'))
+    const computerChoice = getComputerChoice()
+    // console.log(`[DEBUG] ${playerChoice}:${computerChoice}`)
+
+    const result = playRound(playerChoice, computerChoice)
+    console.log(result)
+
+    if (result.startsWith('You win!')) {
+      playerScore++
+    } else if (result.startsWith('You lose!')) {
+      computerScore++
+    }
+
+    // console.debug(`[DEBUG] score: ${playerScore}:${computerScore}`)
+
+    if (playerScore >= 3) {
+      console.log(`Player Won! ${playerScore}:${computerScore}`)
+      break
+    } else if (computerScore >= 3) {
+      console.log(`Computer Won! ${playerScore}:${computerScore}`)
+      break
+    }
+  }
+}
+
+game()
