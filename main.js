@@ -11,20 +11,39 @@ function normalizeUserChoice(choice) {
 }
 
 // returns result string: does a beat b?
-function compareChoices(a, b) {
-    if (a === b) {
-        return "Tie! You both picked the same choice."
+function playRound(playerChoice, computerChoice) {
+    if (playerChoice === computerChoice) {
+        return `Tie! You both picked ${playerChoice}.`
     }
 
-    if (!a in ["Rock", "Paper", "Scissors"]) {
-        return "Invalid Choice! Try again"
+    let validChoices = ["Rock", "Paper", "Scissors"]
+
+    if (!["Rock", "Paper", "Scissors"].includes(playerChoice)) {
+        return "Invalid choice from Player! Try again"
     }
-    if (!b in ["Rock", "Paper", "Scissors"]) {
-        return "Invalid Choice! Try again"
+
+    if (!["Rock", "Paper", "Scissors"].includes(computerChoice)) {
+        return "Invalid choice from Computer! Try again"
     }
-    switch (a) {
-        case "Rock":
-            b == "Scissors"
-            break
+
+    let playerWon;
+
+    if (playerChoice === "Rock") {
+        playerWon = (computerChoice === "Paper") // true if paper, false otherwise
+    } else if (playerChoice === "Paper") {
+
+    }
+    if (playerChoice === "Scissors") {
+        if (computerChoice === "Rock") {
+            return "You lose! Rock beats Scissors>"
+        } else {
+            return "You win! Scissors beats Paper"
+        }
+    }
+
+    if (playerWon) {
+        return `You win! ${playerChoice} beats ${computerChoice}`;
+    } else {
+        return `You lose! ${computerChoice} beats ${playerChoice}`;
     }
 }
