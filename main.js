@@ -3,21 +3,20 @@ function getComputerChoice () {
   return choices[Math.floor(Math.random() * choices.length)]
 }
 
-// returns a titlecase formatted choice
-function normalizeChoice (choice) {
-  return choice.slice(0, 1).toUpperCase() + choice.slice(1).toLowerCase()
+function isValidChoice (choice) {
+  const validChoices = ['Rock', 'Paper', 'Scissors']
+  return validChoices.includes(playerChoice)
 }
 
-// returns result string: does a beat b?
-// IMPORTANT: takes in PROPERLY FORMATTER strings (titlecase) for each choice
+// returns a bool: if player won or not
+// IMPORTANT: takes in PROPERLY FORMATTED strings (titlecase) for each choice
 function playRound (playerChoice, computerChoice) {
   // validity checks
-  const validChoices = ['Rock', 'Paper', 'Scissors']
-  if (!validChoices.includes(playerChoice)) {
+  if (!isValidChoice(playerChoice)) {
     return 'Invalid choice from Player! Try again'
   }
 
-  if (!validChoices.includes(computerChoice)) {
+  if (!isValidChoice(computerChoice)) {
     return 'Invalid choice from Computer! Try again'
   }
 
@@ -27,7 +26,7 @@ function playRound (playerChoice, computerChoice) {
   }
 
   // decide if player won
-  let playerWon
+  let playerWon;
 
   if (playerChoice === 'Rock') {
     playerWon = (computerChoice === 'Paper') // true if paper, false otherwise
@@ -37,12 +36,7 @@ function playRound (playerChoice, computerChoice) {
     playerWon = (computerChoice === 'Scissors')
   }
 
-  // return result
-  if (playerWon) {
-    return `You win! ${playerChoice} beats ${computerChoice}`
-  } else {
-    return `You lose! ${computerChoice} beats ${playerChoice}`
-  }
+  return playerWon
 }
 
 function game () {
@@ -75,5 +69,3 @@ function game () {
     }
   }
 }
-
-game()
